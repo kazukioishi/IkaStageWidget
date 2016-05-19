@@ -1,24 +1,43 @@
 package xyz.myskng.ikastagewidget.api
 
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.ObjectMapper
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import xyz.myskng.ikastagewidget.model.Stage
+import java.text.SimpleDateFormat
 
-/**
- * Created by Kazuki on 2016/05/19.
- */
 class StageInfo {
     companion object{
         val GACHI_STAGE_INFO_API_ENDPOINT : String = "http://splapi.retrorocket.biz/gachi/now"
         val REGULAR_STAGE_INFO_API_ENDPOINT : String = "http://splapi.retrorocket.biz/regular/now"
-        fun GetGachiStageList() : Array<String>?{
+        val API_TIMEFORMAT : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+
+        @JvmStatic fun GetGachiStageList() : Stage{
             var client : OkHttpClient = OkHttpClient()
             var req : Request.Builder = Request.Builder()
             req.url(GACHI_STAGE_INFO_API_ENDPOINT)
             var json : String =  client.newCall(req.build()).execute().body().string()
-            return null
+            var node : JsonNode = ObjectMapper().readTree(json)
+            var stg : Stage = Stage()
+            stg.maps = arrayOf(node.at("/result")[0].at("/maps")[0].asText(),node.at("/result")[0].at("/maps")[1].asText())
+            stg.startTime = API_TIMEFORMAT.parse(node.at("/result")[0].at("/start").asText())
+            stg.endTime = API_TIMEFORMAT.parse(node.at("/result")[0].at("/end").asText())
+            stg.rule = node.at("/result")[0].at("/rule").asText()
+            return stg
         }
-        fun GetRegularStageList() : Array<String>?{
-            return null
+
+        @JvmStatic fun GetRegularStageList() : Stage{
+            var client : OkHttpClient = OkHttpClient()
+            var req : Request.Builder = Request.Builder()
+            req.url(REGULAR_STAGE_INFO_API_ENDPOINT)
+            var json : String =  client.newCall(req.build()).execute().body().string()
+            var node : JsonNode = ObjectMapper().readTree(json)
+            var stg : Stage = Stage()
+            stg.maps = arrayOf(node.at("/result")[0].at("/maps")[0].asText(),node.at("/result")[0].at("/maps")[1].asText())
+            stg.startTime = API_TIMEFORMAT.parse(node.at("/result")[0].at("/start").asText())
+            stg.endTime = API_TIMEFORMAT.parse(node.at("/result")[0].at("/end").asText())
+            return stg
         }
     }
 }
