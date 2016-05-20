@@ -48,4 +48,10 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     // http://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
+    compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+}
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 }

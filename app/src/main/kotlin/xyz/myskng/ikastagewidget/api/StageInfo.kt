@@ -12,7 +12,7 @@ class StageInfo {
     companion object{
         val GACHI_STAGE_INFO_API_ENDPOINT : String = "http://splapi.retrorocket.biz/gachi/now"
         val REGULAR_STAGE_INFO_API_ENDPOINT : String = "http://splapi.retrorocket.biz/regular/now"
-        val API_TIMEFORMAT : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+        val API_TIMEFORMAT : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss")
 
         @JvmStatic fun GetGachiStageList() : GachiStage {
             var client : OkHttpClient = OkHttpClient()
