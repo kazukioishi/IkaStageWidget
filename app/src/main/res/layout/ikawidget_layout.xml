@@ -14,6 +14,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
                 android:layout_marginStart="20dp"
+                android:textStyle="bold"
                 android:textSize="15sp"/>
         <TextView
                 android:id="@+id/regular_battle_stage2_textview"
@@ -21,6 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
                 android:layout_marginStart="20dp"
+                android:textStyle="bold"
                 android:textSize="15sp"/>
     </LinearLayout>
     <LinearLayout
@@ -35,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
                 android:layout_marginStart="20dp"
+                android:textStyle="bold"
                 android:textSize="15sp"/>
         <TextView
                 android:id="@+id/gachi_battle_stage2_textview"
@@ -42,6 +45,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
                 android:layout_marginStart="20dp"
+                android:textStyle="bold"
+                android:textSize="15sp"/>
+        <TextView
+                android:id="@+id/gachi_battle_rule_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/regularmatch"
+                android:layout_marginStart="20dp"
+                android:textStyle="bold"
                 android:textSize="15sp"/>
         <ImageView android:id="@+id/time_text_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" />
     </LinearLayout>

@@ -12,6 +12,7 @@ import android.graphics.Color
 import android.widget.RemoteViews
 import xyz.myskng.ikastagewidget.R
 import xyz.myskng.ikastagewidget.api.StageInfo
+import xyz.myskng.ikastagewidget.model.GachiStage
 import xyz.myskng.ikastagewidget.model.Stage
 import xyz.myskng.ikastagewidget.widget.IkaWidgetProvider
 import xyz.myskng.widget.TextRenderer
@@ -40,12 +41,13 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
         //get data from API
         try{
             var regular : Stage? = StageInfo.GetRegularStageList()
-            var gachi : Stage? = StageInfo.GetGachiStageList()
+            var gachi : GachiStage? = StageInfo.GetGachiStageList()
             //update textview
             remoteview.setTextViewText(R.id.gachi_battle_stage1_textview,gachi?.maps?.get(0))
             remoteview.setTextViewText(R.id.gachi_battle_stage2_textview,gachi?.maps?.get(1))
             remoteview.setTextViewText(R.id.regular_battle_stage1_textview,regular?.maps?.get(0))
             remoteview.setTextViewText(R.id.regular_battle_stage2_textview,regular?.maps?.get(1))
+            remoteview.setTextViewText(R.id.gachi_battle_rule_textview,"(" + gachi?.rule + ")")
             //draw time
             val timeformat : SimpleDateFormat? = SimpleDateFormat("MM/dd kk:mm")
             var timetext : String = timeformat?.format(regular?.startTime) + "~" + timeformat?.format(regular?.endTime)
