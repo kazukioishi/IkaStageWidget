@@ -28,13 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:id="@+id/stagelistview_gachimatch_1"
-                android:text="@string/gachimatch"/>
-        <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:id="@+id/stagelistview_gachimatch_2"
+                android:id="@+id/stagelistview_gachimatch_stage"
                 android:text="@string/gachimatch"/>
     </LinearLayout>
     <LinearLayout
@@ -51,13 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:id="@+id/stagelistview_regularmatch_1"
-                android:text="@string/regularmatch"/>
-        <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:id="@+id/stagelistview_regularmatch_2"
+                android:id="@+id/stagelistview_regularmatch_stage"
                 android:text="@string/regularmatch"/>
     </LinearLayout>
 </LinearLayout>
