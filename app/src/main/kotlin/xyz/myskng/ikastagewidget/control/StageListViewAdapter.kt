@@ -24,22 +24,29 @@ class StageListViewAdapter(context : Context) : BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        //TODO : ViewHolderを使った実装に変更
+        var holder : StageListViewHolder = StageListViewHolder()
         val listitem : StageListViewItem = list.get(position)
-        val cView : View? = layoutinflater?.inflate(R.layout.stagelistview_layout,parent,false)
-        val datetimetext : AppCompatTextView? = cView?.findViewById(R.id.stagelistview_datetimetext) as AppCompatTextView;
-        datetimetext?.text = SimpleDateFormat("kk:mm~\n").format(listitem.gachistage?.startTime) + SimpleDateFormat("kk:mm~").format(listitem.gachistage?.endTime)
-        val gachimatch : AppCompatTextView? = cView?.findViewById(R.id.stagelistview_gachimatch) as AppCompatTextView
-        val gachimatch_stage : AppCompatTextView? = cView?.findViewById(R.id.stagelistview_gachimatch_stage) as AppCompatTextView
-        gachimatch_stage?.text = listitem.gachistage?.maps?.get(0) + "\n" + listitem.gachistage?.maps?.get(1) + "\n" + listitem.gachistage?.rule
-        val regularmatch : AppCompatTextView? = cView?.findViewById(R.id.stagelistview_regularmatch) as AppCompatTextView
-        val regularmatch_stage : AppCompatTextView? = cView?.findViewById(R.id.stagelistview_regularmatch_stage) as AppCompatTextView
-        regularmatch_stage?.text = listitem.stage?.maps?.get(0) + "\n" + listitem.stage?.maps?.get(1)
+        var cView : View? = null
+        if(convertView != null){
+            holder = convertView.tag as StageListViewHolder
+            cView = convertView
+        }else{
+            cView = layoutinflater?.inflate(R.layout.stagelistview_layout,parent,false)
+        }
+
+        holder.datetimetext = cView?.findViewById(R.id.stagelistview_datetimetext) as AppCompatTextView;
+        holder.datetimetext?.text = SimpleDateFormat("kk:mm~\n").format(listitem.gachistage?.startTime) + SimpleDateFormat("kk:mm~").format(listitem.gachistage?.endTime)
+        holder.gachimatch = cView?.findViewById(R.id.stagelistview_gachimatch) as AppCompatTextView
+        holder.gachimatch_stage = cView?.findViewById(R.id.stagelistview_gachimatch_stage) as AppCompatTextView
+        holder.gachimatch_stage?.text = listitem.gachistage?.maps?.get(0) + "\n" + listitem.gachistage?.maps?.get(1) + "\n" + listitem.gachistage?.rule
+        holder.regularmatch = cView?.findViewById(R.id.stagelistview_regularmatch) as AppCompatTextView
+        holder.regularmatch_stage = cView?.findViewById(R.id.stagelistview_regularmatch_stage) as AppCompatTextView
+        holder.regularmatch_stage?.text = listitem.stage?.maps?.get(0) + "\n" + listitem.stage?.maps?.get(1)
 
         //set fonts
-        datetimetext?.typeface = ikamodoki
-        gachimatch?.typeface = ikamodoki
-        regularmatch?.typeface = ikamodoki
+        holder.datetimetext?.typeface = ikamodoki
+        holder.gachimatch?.typeface = ikamodoki
+        holder.regularmatch?.typeface = ikamodoki
 
         return cView
     }
