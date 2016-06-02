@@ -38,7 +38,7 @@ class StageListViewAdapter(context : Context) : BaseAdapter() {
         holder.datetimetext?.text = SimpleDateFormat("kk:mm~\n").format(listitem.gachistage?.startTime) + SimpleDateFormat("kk:mm~").format(listitem.gachistage?.endTime)
         holder.gachimatch = cView?.findViewById(R.id.stagelistview_gachimatch) as AppCompatTextView
         holder.gachimatch_stage = cView?.findViewById(R.id.stagelistview_gachimatch_stage) as AppCompatTextView
-        holder.gachimatch_stage?.text = listitem.gachistage?.maps?.get(0) + "\n" + listitem.gachistage?.maps?.get(1) + "\n" + listitem.gachistage?.rule
+        holder.gachimatch_stage?.text = listitem.gachistage?.maps?.get(0) + "\n" + listitem.gachistage?.maps?.get(1) + "\n(" + listitem.gachistage?.rule + ")"
         holder.regularmatch = cView?.findViewById(R.id.stagelistview_regularmatch) as AppCompatTextView
         holder.regularmatch_stage = cView?.findViewById(R.id.stagelistview_regularmatch_stage) as AppCompatTextView
         holder.regularmatch_stage?.text = listitem.stage?.maps?.get(0) + "\n" + listitem.stage?.maps?.get(1)

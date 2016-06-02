@@ -49,9 +49,13 @@ dependencies {
     // http://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
     compile 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+    compile 'com.github.yamamotoj:subskription:0.2.2'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxkotlin:x.y.z'
 }
 repositories {
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots/'
     }
+    maven { url "https://dl.bintray.com/yamamotoj/maven" }
 }
