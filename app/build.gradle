@@ -32,13 +32,15 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        debug{
+            main.java.srcDirs += 'src/kotlintester'
+        }
     }
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
 }
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
