@@ -11,6 +11,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.widget.RemoteViews
 import xyz.myskng.ikastagewidget.R
+import xyz.myskng.ikastagewidget.activity.MainActivity
 import xyz.myskng.ikastagewidget.api.StageInfo
 import xyz.myskng.ikastagewidget.model.GachiStage
 import xyz.myskng.ikastagewidget.model.Stage
@@ -53,6 +54,10 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
             var timetext : String = timeformat?.format(regular?.startTime) + "~" + timeformat?.format(regular?.endTime)
             var timetextbitmap : Bitmap = TextRenderer.getFontBitmap(context,timetext,Color.WHITE,20f)
             remoteview.setImageViewBitmap(R.id.time_text_imageview,timetextbitmap)
+            //set on click listener
+            val mainintent : Intent = Intent(context,MainActivity::class.java)
+            val pmainintent : PendingIntent = PendingIntent.getActivity(context, 0, mainintent, 0)
+            remoteview.setOnClickPendingIntent(R.id.widget_background,pmainintent)
             //set timer
             var calendar : Calendar = Calendar.getInstance()
             calendar.time = regular?.endTime
