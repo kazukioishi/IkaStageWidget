@@ -33,7 +33,6 @@
             <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@color/colorPrimaryDark"
                     android:textAlignment="center"
@@ -51,7 +50,6 @@
             <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@color/colorPrimaryDark"
                     android:textAlignment="center"
@@ -80,7 +78,6 @@
             <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@color/colorPrimaryDark"
                     android:textAlignment="center"
@@ -98,7 +95,6 @@
             <android.support.v7.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:background="@color/colorPrimaryDark"
                     android:textAlignment="center"
