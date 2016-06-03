@@ -18,9 +18,19 @@ class StageImage {
                 Pair("ヒラメが丘団地",R.drawable.flounder_heights),
                 Pair("マサバ海峡大橋",R.drawable.hammerhead_bridge),
                 Pair("キンメダイ美術館",R.drawable.museum_d_alfonsino),
-                Pair("マヒマヒリゾート＆スパ",R.drawable.mahi_mahi_resort),
+                Pair("マヒマヒリゾート&スパ",R.drawable.mahi_mahi_resort),
                 Pair("ショッツル鉱山",R.drawable.piranha_pit),
                 Pair("アンチョビットゲームズ",R.drawable.ancho_v_games)
         )
+
+        fun getStageImage(stagename : String) : Int{
+            val retval : Int? = stageHashMap[stagename]
+            if(retval != null){
+                return retval
+            }else{
+                //とりあえずなんか返しとけ
+                return R.drawable.ancho_v_games
+            }
+        }
     }
 }
