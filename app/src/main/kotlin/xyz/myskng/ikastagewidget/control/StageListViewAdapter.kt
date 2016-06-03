@@ -26,11 +26,11 @@ class StageListViewAdapter(context : Context) : BaseAdapter() {
         ikamodoki = Typeface.createFromAsset(context.getAssets(), "ProjectPaintballKai.ttf");
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View?  {
         var holder : StageListViewHolder = StageListViewHolder()
         val listitem : StageListViewItem = list.get(position)
         var cView : View? = null
-        if(convertView != null){
+        if(convertView != null && convertView.tag != null){
             holder = convertView.tag as StageListViewHolder
             cView = convertView
         }else{
@@ -64,6 +64,9 @@ class StageListViewAdapter(context : Context) : BaseAdapter() {
         holder.datetimetext?.typeface = ikamodoki
         holder.gachimatch?.typeface = ikamodoki
         holder.regularmatch?.typeface = ikamodoki
+
+        //set tag
+        convertView?.tag = holder
 
         return cView
     }
