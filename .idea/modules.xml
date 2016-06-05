@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/IkaStageWidget.iml" filepath="$PROJECT_DIR$/.idea/modules/IkaStageWidget.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wear/wear.iml" filepath="$PROJECT_DIR$/.idea/modules/wear/wear.iml" />
     </modules>
   </component>
 </project>
