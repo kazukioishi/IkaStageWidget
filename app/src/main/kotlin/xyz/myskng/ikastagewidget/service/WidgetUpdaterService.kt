@@ -56,7 +56,9 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
             remoteview.setImageViewBitmap(R.id.time_text_imageview,timetextbitmap)
             //set on click listener
             val mainintent : Intent = Intent(context,MainActivity::class.java)
-            val pmainintent : PendingIntent = PendingIntent.getActivity(context, 0, mainintent, 0)
+            //reopen last activity
+            mainintent.action = System.currentTimeMillis().toString()
+            val pmainintent : PendingIntent = PendingIntent.getActivity(context, 0, mainintent, PendingIntent.FLAG_CANCEL_CURRENT)
             remoteview.setOnClickPendingIntent(R.id.widget_background,pmainintent)
             //set timer
             var calendar : Calendar = Calendar.getInstance()
