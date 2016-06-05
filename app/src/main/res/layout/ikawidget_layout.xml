@@ -16,41 +16,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
-                android:textSize="15sp"/>
+                android:textSize="10sp"/>
         <TextView
                 android:id="@+id/regular_battle_stage2_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
-                android:textSize="15sp"/>
+                android:textSize="10sp"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:paddingLeft="10dp">
+            android:paddingLeft="0dp">
         <ImageView android:id="@+id/gachi_battle_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
         <TextView
                 android:id="@+id/gachi_battle_stage1_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
-                android:textSize="15sp"/>
+                android:textSize="10sp"/>
         <TextView
                 android:id="@+id/gachi_battle_stage2_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/regularmatch"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
-                android:textSize="15sp"/>
-        <ImageView android:id="@+id/time_text_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5dp" />
+                android:textSize="10sp"/>
+        <ImageView android:id="@+id/time_text_imageview" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0dp" />
     </LinearLayout>
 </LinearLayout>
