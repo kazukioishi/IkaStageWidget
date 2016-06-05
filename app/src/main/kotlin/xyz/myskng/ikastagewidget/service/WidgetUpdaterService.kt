@@ -30,11 +30,6 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
         if(widgetmanager?.getAppWidgetIds(componentname)?.count() == 0) return
         //get remote view
         var remoteview : RemoteViews = RemoteViews(context.packageName, R.layout.ikawidget_layout)
-        //initialize view
-        var regularbitmap : Bitmap = TextRenderer.getFontBitmap(context,context.getString(R.string.regularmatch), Color.GREEN,25f)
-        var gachibitmap : Bitmap = TextRenderer.getFontBitmap(context,context.getString(R.string.gachimatch), Color.RED,25f)
-        remoteview.setImageViewBitmap(R.id.gachi_battle_imageview,gachibitmap)
-        remoteview.setImageViewBitmap(R.id.regular_battle_imageview,regularbitmap)
         //get timer
         var sintent : Intent = Intent(context,WidgetUpdaterService::class.java)
         var pintent : PendingIntent = PendingIntent.getService(context,-1,sintent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -48,7 +43,11 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
             remoteview.setTextViewText(R.id.gachi_battle_stage2_textview,gachi?.maps?.get(1))
             remoteview.setTextViewText(R.id.regular_battle_stage1_textview,regular?.maps?.get(0))
             remoteview.setTextViewText(R.id.regular_battle_stage2_textview,regular?.maps?.get(1))
-            remoteview.setTextViewText(R.id.gachi_battle_rule_textview,"(" + gachi?.rule + ")")
+            //initialize ikafontview
+            var regularbitmap : Bitmap = TextRenderer.getFontBitmap(context,context.getString(R.string.regularmatch), Color.GREEN,25f)
+            var gachibitmap : Bitmap = TextRenderer.getFontBitmap(context,context.getString(R.string.gachimatch) + "(" + gachi?.rule + ")", Color.RED,25f)
+            remoteview.setImageViewBitmap(R.id.gachi_battle_imageview,gachibitmap)
+            remoteview.setImageViewBitmap(R.id.regular_battle_imageview,regularbitmap)
             //draw time
             val timeformat : SimpleDateFormat? = SimpleDateFormat("MM/dd kk:mm")
             var timetext : String = timeformat?.format(regular?.startTime) + "~" + timeformat?.format(regular?.endTime)
@@ -67,7 +66,7 @@ class WidgetUpdaterService : IntentService("WidgetUpdaterService") {
         }catch(e:Exception){
             //got an error retry later
             var calendar : Calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.timeInMillis = System.currentTimeMillis();
             calendar.add(Calendar.MINUTE, 10);
             amanager.set(AlarmManager.RTC,calendar.timeInMillis,pintent)
             return
