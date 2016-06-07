@@ -17,6 +17,7 @@ class WearMessageReceiver : WearableListenerService() {
 
     override fun onMessageReceived(p0: MessageEvent?) {
         super.onMessageReceived(p0)
+        Log.d("IkaWearService","got message!")
         if(p0?.path == "/ikaget"){
             //make return JSON
             var json : String = ""
@@ -55,6 +56,7 @@ class WearMessageReceiver : WearableListenerService() {
 
     override fun onCreate() {
         super.onCreate()
+        Log.d("IkaWearService","service created!!")
         gclient = GoogleApiClient.Builder(this).addApi(Wearable.API).build()
         gclient?.connect()
     }
