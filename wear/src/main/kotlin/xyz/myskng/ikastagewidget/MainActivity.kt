@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Fragment
 import android.app.FragmentManager
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.wearable.view.FragmentGridPagerAdapter
 import android.support.wearable.view.GridViewPager
 import android.support.wearable.view.WatchViewStub
@@ -29,9 +30,11 @@ import java.util.*
 class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelegate() {
     val tview : TextView by bindView(R.id.text)
     val gridPager : GridViewPager by bindView(R.id.viewpager)
+    val swipe_refresh : SwipeRefreshLayout by bindView(R.id.swipe_refresh)
     var gclient : GoogleApiClient? = null
     var concallback : ConCallBack = ConCallBack()
     var adapter : GridPagerAdapter? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,14 @@ class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelega
         //init adapter
         adapter = GridPagerAdapter(fragmentManager)
         gridPager.adapter = adapter
+        //set swipe refresh
+        swipe_refresh.setOnRefreshListener {
+            if(gclient != null && gclient!!.isConnected){
+                //call refresh
+                concallback.onConnected(null)
+            }
+        }
+        swipe_refresh.isRefreshing = true
         //init google api
         gclient = GoogleApiClient.Builder(this).addApi(Wearable.API).addConnectionCallbacks(concallback).build()
         gclient?.connect()
@@ -78,12 +89,13 @@ class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelega
                             //on next
                         },{
                             //on error
-                            tview?.text = "ERROR"
+                            tview.text = "ERROR"
                         },{
                             //on complete
-                            tview?.text = "OK"
+                            tview.text = ""
                             adapter?.ikaList = ikalist
                             adapter?.notifyDataSetChanged()
+                            swipe_refresh.isRefreshing = false
                         })
             }
         }
@@ -117,16 +129,18 @@ class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelega
     inner class GridPagerAdapter(fm: FragmentManager?) : FragmentGridPagerAdapter(fm) {
         var ikaList : ArrayList<StageListViewItem> = ArrayList()
         override fun getFragment(row: Int, column: Int): Fragment? {
+            Log.d("IkaStageWidget","ROW:" + row.toString())
+            Log.d("IkaStageWidget","COLUMN:" + column.toString())
             val fragment : IkaFragment? = IkaFragment()
-            //row1:レギュラー row2:ガチマッチ
+            //column1:レギュラー column2:ガチマッチ
             //get parent item index
             val idx : Int
-            if(row % 2 == 0){
-                idx = row / 2
-            }else{
+            if((row+1) % 2 == 0){
                 idx = (row+1) / 2
+            }else{
+                idx = (row+2) / 2
             }
-            val stageItem : StageListViewItem = ikaList[idx]
+            val stageItem : StageListViewItem = ikaList[idx -1]
             fragment?.stageViewItem = stageItem
             fragment?.row = row
             fragment?.column = column

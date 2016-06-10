@@ -4,13 +4,17 @@ import android.app.Fragment
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.wearable.view.BoxInsetLayout
+import android.support.wearable.view.CardScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.bindView
 import xyz.myskng.ikastagewidget.model.StageListViewItem
 import xyz.myskng.ikastagewidget.tools.Views
+import xyz.myskng.ikastagewidget.ui.StageImage
 import java.text.SimpleDateFormat
 
 class IkaFragment() : Fragment() {
@@ -18,7 +22,8 @@ class IkaFragment() : Fragment() {
     val ruleTextView : TextView by Views.bind(this,R.id.ikarule)
     val dateTextView : TextView by Views.bind(this,R.id.ikadate)
     val stageTextView : TextView by Views.bind(this,R.id.ikastagename)
-    val boxinsertlayout : BoxInsetLayout by Views.bind(this,R.id.ika_fragment_layout)
+    val parentlayout : RelativeLayout by Views.bind(this,R.id.ika_fragment_layout)
+    val background_imageview : ImageView by Views.bind(this,R.id.background_imageview)
     var row : Int = 0
     var column : Int = 0
     companion object{
@@ -28,7 +33,7 @@ class IkaFragment() : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val layout : View? = inflater?.inflate(R.layout.ika_fragment_layout,container)
+        val layout : View? = inflater?.inflate(R.layout.ika_fragment_layout,container,false)
         //load typeface if not loaded
         if(ikamodoki == null) ikamodoki = Typeface.createFromAsset(activity.assets, "ProjectPaintballKai.ttf");
         return layout
@@ -39,13 +44,12 @@ class IkaFragment() : Fragment() {
         //set ikamodoki fonts
         ruleTextView.typeface = ikamodoki
         dateTextView.typeface = ikamodoki
-        boxinsertlayout.background = activity.getDrawable(R.drawable.ancho_v_games)
         //set text
-        if(column == 1){
+        if(column == 0){
             //regular match
             ruleTextView.text = activity.getText(R.string.regularmatch)
             //odd number => 1nd stage
-            if(row % 2 != 0){
+            if((row+1) % 2 != 0){
                 stageTextView.text = stageViewItem!!.stage!!.maps!![0]
                 dateTextView.text = dateFormat.format(stageViewItem!!.stage!!.startTime) + "~" + dateFormat.format(stageViewItem!!.stage!!.endTime)
             }else{
@@ -53,10 +57,10 @@ class IkaFragment() : Fragment() {
                 stageTextView.text = stageViewItem!!.stage!!.maps!![1]
                 dateTextView.text = dateFormat.format(stageViewItem!!.stage!!.startTime) + "~" + dateFormat.format(stageViewItem!!.stage!!.endTime)
             }
-        }else if(column == 2){
+        }else if(column == 1){
             //gachi match
             ruleTextView.text = activity.getText(R.string.gachimatch).toString() + "(" + stageViewItem!!.gachistage!!.rule + ")"
-            if(row % 2 != 0){
+            if((row+1) % 2 != 0){
                 stageTextView.text = stageViewItem!!.gachistage!!.maps!![0]
                 dateTextView.text = dateFormat.format(stageViewItem!!.stage!!.startTime) + "~" + dateFormat.format(stageViewItem!!.stage!!.endTime)
             }else{
@@ -64,5 +68,7 @@ class IkaFragment() : Fragment() {
                 dateTextView.text = dateFormat.format(stageViewItem!!.stage!!.startTime) + "~" + dateFormat.format(stageViewItem!!.stage!!.endTime)
             }
         }
+        //set background
+        background_imageview.setImageResource(StageImage.getStageImage(stageTextView.text.toString()))
     }
 }
