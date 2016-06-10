@@ -59,6 +59,8 @@ dependencies {
     compile 'com.github.yamamotoj:subskription:0.2.2'
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxkotlin:x.y.z'
+    //wear
+    wearApp project(':wear')
 }
 repositories {
     maven {

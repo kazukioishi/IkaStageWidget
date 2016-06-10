@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.myskng.ikastagewidget" >
     <uses-permission android:name="android.permission.INTERNET"/>
+    <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,6 +30,11 @@
                        android:resource="@xml/ikawidget_provider" />
         </receiver>
         <service android:name=".service.WidgetUpdaterService"/>
+        <service android:exported="true" android:name=".wear.WearMessageReceiver">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
 
     </application>
 
