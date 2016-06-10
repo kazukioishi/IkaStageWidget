@@ -1,33 +1,48 @@
 package xyz.myskng.ikastagewidget
 
 import android.app.Activity
+import android.app.Fragment
+import android.app.FragmentManager
 import android.os.Bundle
+import android.support.wearable.view.FragmentGridPagerAdapter
+import android.support.wearable.view.GridViewPager
 import android.support.wearable.view.WatchViewStub
 import android.util.Log
 import android.widget.TextView
+import butterknife.bindView
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.yamamotoj.subskription.AutoUnsubscribable
+import com.github.yamamotoj.subskription.AutoUnsubscribableDelegate
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.wearable.MessageApi
 import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.PutDataRequest
 import com.google.android.gms.wearable.Wearable
+import rx.android.schedulers.AndroidSchedulers
+import rx.lang.kotlin.observable
+import rx.schedulers.Schedulers
+import xyz.myskng.ikastagewidget.model.StageListViewItem
+import java.util.*
 
-class MainActivity : Activity() {
-    var tview : TextView? = null
+class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelegate() {
+    val tview : TextView by bindView(R.id.text)
+    val gridPager : GridViewPager by bindView(R.id.viewpager)
     var gclient : GoogleApiClient? = null
     var concallback : ConCallBack = ConCallBack()
+    var adapter : GridPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val stub = findViewById(R.id.watch_view_stub) as WatchViewStub
-        stub.setOnLayoutInflatedListener({
-            //on layout inflated
-            tview = stub.findViewById(R.id.text) as TextView
-            tview?.text = "マンメンミ"
-            //init google api
-            gclient = GoogleApiClient.Builder(this).addApi(Wearable.API).addConnectionCallbacks(concallback).build()
-            gclient?.connect()
-        })
+        setContentView(R.layout.main_layout)
+        tview.text = "マンメンミ"
+        //init adapter
+        adapter = GridPagerAdapter(fragmentManager)
+        gridPager.adapter = adapter
+        //init google api
+        gclient = GoogleApiClient.Builder(this).addApi(Wearable.API).addConnectionCallbacks(concallback).build()
+        gclient?.connect()
     }
 
     override fun onPause() {
@@ -38,13 +53,37 @@ class MainActivity : Activity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unsubscribe()
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
     inner class ConCallBack : GoogleApiClient.ConnectionCallbacks, MessageApi.MessageListener {
         override fun onMessageReceived(p0: MessageEvent?) {
             //update view
+            var ikalist : ArrayList<StageListViewItem> = ArrayList()
             tview?.text = "got message"
             if(p0?.path == "/ikareturn"){
-                val json : String = p0!!.data.toString(Charsets.UTF_8)
-                tview?.text = json
+                //decode json
+                observable<String>{
+                    val json : String = p0!!.data.toString(Charsets.UTF_8)
+                    var mapper : ObjectMapper = ObjectMapper()
+                    ikalist = mapper.readValue(json,mapper.typeFactory.constructCollectionType(ArrayList::class.java,StageListViewItem::class.java))
+                    it.onCompleted()
+                }.subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .autoUnsubscribe()
+                        .subscribe({
+                            //on next
+                        },{
+                            //on error
+
+                        },{
+                            //on complete
+                            adapter?.ikaList = ikalist
+                            adapter?.notifyDataSetChanged()
+                        })
             }
         }
 
@@ -71,6 +110,36 @@ class MainActivity : Activity() {
 
         fun removeme(){
             Wearable.MessageApi.removeListener(gclient,this)
+        }
+    }
+
+    inner class GridPagerAdapter(fm: FragmentManager?) : FragmentGridPagerAdapter(fm) {
+        var ikaList : ArrayList<StageListViewItem> = ArrayList()
+        override fun getFragment(row: Int, column: Int): Fragment? {
+            val fragment : IkaFragment? = IkaFragment()
+            //row1:レギュラー row2:ガチマッチ
+            //get parent item index
+            val idx : Int
+            if(row % 2 == 0){
+                idx = row / 2
+            }else{
+                idx = (row+1) / 2
+            }
+            val stageItem : StageListViewItem = ikaList[idx]
+            fragment?.stageViewItem = stageItem
+            fragment?.row = row
+            fragment?.column = column
+            //set value on fragment
+            return fragment
+        }
+
+        override fun getRowCount(): Int {
+            return ikaList.count() * 2
+        }
+
+        override fun getColumnCount(p0: Int): Int {
+            if(ikaList.count() == 0) return 0
+            return 2
         }
     }
 }
