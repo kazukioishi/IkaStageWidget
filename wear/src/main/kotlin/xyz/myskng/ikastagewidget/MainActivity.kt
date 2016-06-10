@@ -78,9 +78,10 @@ class MainActivity : Activity() , AutoUnsubscribable by AutoUnsubscribableDelega
                             //on next
                         },{
                             //on error
-
+                            tview?.text = "ERROR"
                         },{
                             //on complete
+                            tview?.text = "OK"
                             adapter?.ikaList = ikalist
                             adapter?.notifyDataSetChanged()
                         })
