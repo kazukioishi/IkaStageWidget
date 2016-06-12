@@ -1,41 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xyz.myskng.ikastagewidget" >
+          package="xyz.myskng.ikastagewidget">
+
     <uses-permission android:name="android.permission.INTERNET"/>
-    <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <!--This meta-data tag is required to use Google Play Services.-->
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version"/>
 
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|screenSize"
-            android:theme="@style/AppTheme.NoActionBar" >
+                android:name=".activity.MainActivity"
+                android:configChanges="orientation|screenSize"
+                android:label="@string/app_name"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <receiver android:name=".widget.IkaWidgetProvider">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/ikawidget_provider" />
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/ikawidget_provider"/>
         </receiver>
+
         <service android:name=".service.WidgetUpdaterService"/>
-        <service android:exported="true" android:name=".wear.WearMessageReceiver">
+        <service
+                android:name=".wear.WearMessageReceiver"
+                android:exported="true">
             <intent-filter>
-                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER"/>
             </intent-filter>
         </service>
 
+        <activity
+                android:name=".activity.SettingActivity"
+                android:label="@string/title_activity_setting">
+        </activity>
+
+        <!--Include the AdActivity configChanges and theme. -->
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                  android:theme="@android:style/Theme.Translucent" />
     </application>
 
 </manifest>

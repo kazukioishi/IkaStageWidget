@@ -3,4 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="regularmatch">Regular Battle</string>
     <string name="gachimatch">Ranked Battle</string>
+    <string name="about_splapi">This application uses splapi(http://splapi.retrorocket.biz/) to fetch stage information.</string>
+    <string name="about_ikastagewidget">Version1.0</string>
+    <string name="title_activity_setting">SettingActivity</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

@@ -1,5 +1,7 @@
 package xyz.myskng.ikastagewidget.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +14,8 @@ import android.widget.Toast
 import butterknife.bindView
 import com.github.yamamotoj.subskription.AutoUnsubscribable
 import com.github.yamamotoj.subskription.AutoUnsubscribableDelegate
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import rx.android.schedulers.AndroidSchedulers
 import rx.lang.kotlin.observable
 import rx.lang.kotlin.onError
@@ -27,6 +31,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), AutoUnsubscribable by AutoUnsubscribableDelegate() {
     val swipe_refresh_layout : SwipeRefreshLayout by bindView<SwipeRefreshLayout>(R.id.swipe_refresh_layout)
     val ikalistview : ListViewCompat by bindView<ListViewCompat>(R.id.ikalistview)
+    val adview : AdView by bindView(R.id.adView)
     var ikalist : ArrayList<StageListViewItem> = ArrayList();
     var ikaadapter : StageListViewAdapter? = null
 
@@ -39,6 +44,8 @@ class MainActivity : AppCompatActivity(), AutoUnsubscribable by AutoUnsubscribab
         swipe_refresh_layout.setOnRefreshListener({
             updateIkaList()
         })
+        val adrequest : AdRequest = AdRequest.Builder().build()
+        adview.loadAd(adrequest)
     }
 
     override fun onStart() {
@@ -85,8 +92,13 @@ class MainActivity : AppCompatActivity(), AutoUnsubscribable by AutoUnsubscribab
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        return super.onContextItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.action_settings ->{
+                startActivity(Intent(this,SettingActivity::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
