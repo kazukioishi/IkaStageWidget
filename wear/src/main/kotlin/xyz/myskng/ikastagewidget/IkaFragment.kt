@@ -59,7 +59,7 @@ class IkaFragment() : Fragment() {
             }
         }else if(column == 1){
             //gachi match
-            ruleTextView.text = activity.getText(R.string.gachimatch).toString() + "(" + stageViewItem!!.gachistage!!.rule + ")"
+            ruleTextView.text = stageViewItem!!.gachistage!!.rule
             if((row+1) % 2 != 0){
                 stageTextView.text = stageViewItem!!.gachistage!!.maps!![0]
                 dateTextView.text = dateFormat.format(stageViewItem!!.stage!!.startTime) + "~" + dateFormat.format(stageViewItem!!.stage!!.endTime)

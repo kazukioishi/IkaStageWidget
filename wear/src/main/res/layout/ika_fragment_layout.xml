@@ -53,7 +53,7 @@
                                 android:id="@+id/ikadate"/>
                     </LinearLayout>
 
-                    <TextView
+                    <xyz.myskng.ikastagewidget.control.AutoshrinkTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@android:color/primary_text_light"
