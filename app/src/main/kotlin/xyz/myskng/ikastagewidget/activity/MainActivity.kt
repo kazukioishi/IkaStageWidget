@@ -26,6 +26,7 @@ import xyz.myskng.ikastagewidget.control.StageListViewAdapter
 import xyz.myskng.ikastagewidget.model.GachiStage
 import xyz.myskng.ikastagewidget.model.Stage
 import xyz.myskng.ikastagewidget.model.StageListViewItem
+import xyz.myskng.ikastagewidget.service.WidgetUpdaterService
 import java.util.*
 
 class MainActivity : AppCompatActivity(), AutoUnsubscribable by AutoUnsubscribableDelegate() {
@@ -96,6 +97,9 @@ class MainActivity : AppCompatActivity(), AutoUnsubscribable by AutoUnsubscribab
         when(item?.itemId){
             R.id.action_settings ->{
                 startActivity(Intent(this,SettingActivity::class.java))
+            }
+            R.id.action_update_widget ->{
+                startService(Intent(this, WidgetUpdaterService::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

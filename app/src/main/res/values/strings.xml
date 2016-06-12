@@ -7,4 +7,5 @@
     <string name="about_ikastagewidget">Version1.0</string>
     <string name="title_activity_setting">SettingActivity</string>
     <string name="banner_ad_unit_id">ca-app-pub-5073779210496586/4059792775</string>
+    <string name="update_widget">Update widget</string>
 </resources>

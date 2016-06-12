@@ -15,7 +15,7 @@
                 android:id="@+id/regular_battle_stage1_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/regularmatch"
+                android:text="Loading..."
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textSize="10sp"/>
@@ -23,7 +23,7 @@
                 android:id="@+id/regular_battle_stage2_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/regularmatch"
+                android:text="Loading..."
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textSize="10sp"/>
@@ -39,7 +39,7 @@
                 android:id="@+id/gachi_battle_stage1_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/regularmatch"
+                android:text="Loading..."
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textSize="10sp"/>
@@ -47,7 +47,7 @@
                 android:id="@+id/gachi_battle_stage2_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/regularmatch"
+                android:text="Loading..."
                 android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textSize="10sp"/>

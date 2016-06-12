@@ -4,4 +4,5 @@
     <string name="action_settings">設定</string>
     <string name="gachimatch">ガチマッチ</string>
     <string name="regularmatch">レギュラーマッチ</string>
+    <string name="update_widget">ウィジェットを強制的に更新</string>
 </resources>

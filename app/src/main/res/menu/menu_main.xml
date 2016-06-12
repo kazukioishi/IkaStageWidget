@@ -2,8 +2,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="xyz.myskng.ikastagewidget.MainActivity" >
+    <group android:id="@+id/menu_group1">
+        <item android:id="@+id/action_update_widget"
+              android:title="@string/update_widget"
+              android:orderInCategory="100"
+              app:showAsAction="never" />
+    </group>
     <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+          android:title="@string/action_settings"
+          android:orderInCategory="100"
+          app:showAsAction="never" />
 </menu>
